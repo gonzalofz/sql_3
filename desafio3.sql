@@ -86,3 +86,11 @@ SELECT posts.title,posts.content,comments.content AS comment_content ,users.emai
 SELECT comments.created_at, comments.content, comments.user_id FROM comments INNER JOIN (SELECT max(comments.id) AS id_max FROM comments GROUP BY user_id) AS tb_max ON comments.id = tb_max.id_max ORDER BY comments.user_id;
 
 10 Muestra los emails de los usuarios que no han escrito ningún comentario
+
+
+SELECT usuarios.email 
+from usuarios 
+left join comentarios
+on usuarios.id = comentarios.usuario_id 
+group by usuarios.email 
+HAVING count(comentarios.id) = 0;
